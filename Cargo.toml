@@ -1,5 +1,5 @@
 [package]
-name = "so-api"
+name = "rustso"
 version = "0.1.0"
 authors = ["George Aristy"]
 edition = "2018"
