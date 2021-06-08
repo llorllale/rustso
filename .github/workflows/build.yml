@@ -1,0 +1,29 @@
+name: build
+on:
+  push:
+  pull_request:
+
+jobs:
+  UnitTest:
+    name: unit tests
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macOS-10.15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Test
+        uses: icepuma/rust-action@1.52.1
+        with:
+          args: make test && docker run kcov/kcov:38
+  Lint:
+    name: linters
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Lint
+        uses: icepuma/rust-action@1.52.1
+        with:
+          args: make lint

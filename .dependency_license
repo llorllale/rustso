@@ -1,0 +1,11 @@
+# weasel config
+
+README\.md, Docs
+
+# Remove false positives.
+\.gitignore, Ignore
+\.dependency_license, Ignore
+\.pdd, Ignore
+\.idea, Ignore
+Cargo.toml, Ignore
+\.github, Ignore
