@@ -1,6 +1,8 @@
 name: build
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -8,23 +10,25 @@ jobs:
     name: unit tests
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v1
-      - name: Setup Docker
-        run: sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io
-      - name: Test
+      - name: setup docker
+        run: sudo apt update && sudo apt install moby-cli moby-engine containerd.io
+      - name: test
         uses: icepuma/rust-action@1.52.1
         with:
-          args: make test && docker run kcov/kcov:38
+          args: make test
   Lint:
     name: linters
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v1
-      - name: Setup Docker
-        run: sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io
-      - name: Lint
+      - name: setup docker
+        run: sudo apt update && sudo apt install moby-cli moby-engine containerd.io
+      - name: cargo-lint
         uses: icepuma/rust-action@1.52.1
         with:
-          args: make lint
+          args: make cargo-lint
+      - name: docker-lint
+        run: make docker-lint
