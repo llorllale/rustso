@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Setup Docker
-        uses: docker/build-push-action@v2
+        run: sudo apt update && sudo apt install docker
       - name: Test
         uses: icepuma/rust-action@1.52.1
         with:
@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Setup Docker
-        uses: docker/build-push-action@v2
+        run: sudo apt update && sudo apt install docker
       - name: Lint
         uses: icepuma/rust-action@1.52.1
         with:
