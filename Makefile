@@ -16,17 +16,15 @@
 
 all: lint test
 
-lint:
-	@echo "linting..."
-	@echo "... format"
+lint: cargo-lint docker-lint
+
+cargo-lint:
 	@cargo fmt
-	@echo "... license headers"
-	@docker run -v $(shell pwd):/src licenseweasel/weasel:v0.4 /src
-	@echo "... clippy"
 	@cargo clippy
-	@echo "... puzzles"
+
+docker-lint:
+	@docker run -v $(shell pwd):/src licenseweasel/weasel:v0.4 /src
 	@docker run -v $(shell pwd):/src llorllale/pdd-docker:0.20.6 -q -f=puzzles.xml
 
 test:
-	@echo "testing..."
 	@cargo test
